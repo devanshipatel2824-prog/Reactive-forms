@@ -8,7 +8,7 @@ interface Employeeform {
   gender: FormControl<string | null>;
   phone: FormControl<string | null>;
   salary: FormControl<number | null>;
-  city: FormControl<number | null>;
+  city: FormControl<string | null>;
 
 }
 @Component({
@@ -32,27 +32,80 @@ export class Form {
     salary: new FormControl(null, [Validators.required, Validators.min(1000), Validators.max(10000)]),
     city: new FormControl(null, Validators.required)
   })
- onSubmit() {
-  const id = this.form.value.id;
+  employeeList: Emp[] = [];
+  isEditMode = false;
 
-  if (id) {
-    // ✅ UPDATE existing record
-    this.employees.updateEmployee(id, this.form.value as Emp)
-      .subscribe(() => {
-        alert('Record JSON server ma UPDATE thai gayo');
-        this.form.reset();
-      });
-  } else {
-    // ✅ ADD new record
-    this.employees.createEmployee(this.form.value as Emp)
-      .subscribe(() => {
-        alert('Employee Added');
-        this.form.reset();
-      });
-
+  ngOnInit() {
+    this.loadEmployees();
   }
-  
+
+  // Load all employees initially
+  loadEmployees() {
+    this.employees.getEmployee().subscribe(res => {
+      this.employeeList = res;
+    });
+  }
+
+  // Add new employee
+  onSubmit() {
+    if (!this.form.valid) return;
+
+    this.employees.createEmployee(this.form.value as Emp).subscribe(res => {
+      alert('Employee Added Successfully');
+      this.employeeList.push(res); // Add directly to table without reloading
+      this.form.reset();
+    });
+  }
+
+  // Populate form for editing
+  editEmployee(emp: Emp) {
+    this.isEditMode = true;
+    this.form.setValue({
+      id: emp.id,
+      name: emp.name,
+      email: emp.email,
+      gender: emp.gender,
+      phone: emp.phone,
+      salary: emp.salary,
+      city: emp.city
+    });
+  }
+
+  // Update employee
+  updateEmployee() {
+    const id = this.form.value.id;
+    if (!id) return alert('Please select employee to update');
+
+    this.employees.updateEmployee(id, this.form.value as Emp).subscribe(res => {
+      alert('Employee Updated Successfully');
+      // Update table locally
+      const index = this.employeeList.findIndex(emp => emp.id === id);
+      if (index !== -1) {
+        this.employeeList[index] = { ...this.form.value } as Emp;
+      }
+      this.form.reset();
+      this.isEditMode = false;
+    });
+  }
+
+  // Delete employee
+  deleteEmployee(id: string | null) {
+    if (!id) return;
+
+    this.employees.deleteEmployee(id).subscribe(() => {
+      alert('Employee Deleted Successfully');
+      // Remove from table locally
+      this.employeeList = this.employeeList.filter(emp => emp.id !== id);
+      if (this.form.value.id === id) this.form.reset();
+      this.isEditMode = false;
+    });
+  }
+
+  // Cancel editing
+  cancelEdit() {
+    this.form.reset();
+    this.isEditMode = false;
+  }
 }
 
 
-}

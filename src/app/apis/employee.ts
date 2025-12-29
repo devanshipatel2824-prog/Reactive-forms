@@ -32,5 +32,9 @@ export class Employee {
   deleteEmployee(id: string) {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
+// employee.ts
+// getEmployeeById(id: string): Observable<Emp> {
+//   return this.http.get<Emp>(`${this.apiUrl}/${id}`);
+// }
 
 }

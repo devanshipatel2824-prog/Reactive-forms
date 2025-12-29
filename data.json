@@ -2,39 +2,39 @@
   "employee": [
     {
       "id": "1",
-      "name": "patel prachi ",
-      "email": "prachi@tag97.com",
+      "name": "devanshi j",
+      "email": "devanshi@tag97.com",
       "gender": "female",
-      "phone": 8963521475,
-      "salary": 10000,
-      "city": "Vadodara"
-    },
-    {
-      "id": "1",
-      "name": "prachi",
-      "email": "prachi@tag97.com",
-      "gender": "female",
-      "phone": 8963521475,
+      "phone": 7859645321,
       "salary": 1000,
-      "city": "Vadodara"
+      "city": "Rajkot"
     },
     {
       "id": "2",
-      "name": "prachi i",
-      "email": "prachi@tag97.com",
-      "gender": "female",
-      "phone": 8963521475,
+      "name": "john",
+      "email": "john@tag97.com",
+      "gender": "male",
+      "phone": 9876543223,
       "salary": 1000,
-      "city": "Vadodara"
+      "city": "Ahmedabad"
     },
     {
-      "id": "1",
-      "name": "prachi i",
-      "email": "prachi@tag97.com",
+      "id": "3",
+      "name": "dhyey ",
+      "email": "dhyey@tag97.com",
+      "gender": "male",
+      "phone": 8967456321,
+      "salary": 1000,
+      "city": "Surat"
+    },
+    {
+      "id": "4",
+      "name": "prachi",
+      "email": "parchi@tag97.com",
       "gender": "female",
-      "phone": 8963521475,
+      "phone": 8963258974,
       "salary": 10000,
-      "city": "Vadodara"
+      "city": "Ahmedabad"
     }
   ]
 }

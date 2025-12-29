@@ -1,0 +1,41 @@
+/* Card styling */
+.card {
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Table styling */
+.table-responsive {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead th {
+  text-align: center;
+}
+
+tbody td {
+  vertical-align: middle;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Buttons */
+button {
+  min-width: 70px;
+  margin-bottom: 5px;
+}
+
+/* Validation styling */
+.is-invalid {
+  border-color: #dc3545;
+}
+.text-danger {
+  font-size: 0.85rem;
+}
