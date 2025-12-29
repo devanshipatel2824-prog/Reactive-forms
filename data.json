@@ -1,0 +1,40 @@
+{
+  "employee": [
+    {
+      "id": "1",
+      "name": "patel prachi ",
+      "email": "prachi@tag97.com",
+      "gender": "female",
+      "phone": 8963521475,
+      "salary": 10000,
+      "city": "Vadodara"
+    },
+    {
+      "id": "1",
+      "name": "prachi",
+      "email": "prachi@tag97.com",
+      "gender": "female",
+      "phone": 8963521475,
+      "salary": 1000,
+      "city": "Vadodara"
+    },
+    {
+      "id": "2",
+      "name": "prachi i",
+      "email": "prachi@tag97.com",
+      "gender": "female",
+      "phone": 8963521475,
+      "salary": 1000,
+      "city": "Vadodara"
+    },
+    {
+      "id": "1",
+      "name": "prachi i",
+      "email": "prachi@tag97.com",
+      "gender": "female",
+      "phone": 8963521475,
+      "salary": 10000,
+      "city": "Vadodara"
+    }
+  ]
+}
