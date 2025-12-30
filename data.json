@@ -26,15 +26,6 @@
       "phone": 8967456321,
       "salary": 1000,
       "city": "Surat"
-    },
-    {
-      "id": "4",
-      "name": "prachi",
-      "email": "parchi@tag97.com",
-      "gender": "female",
-      "phone": 8963258974,
-      "salary": 10000,
-      "city": "Ahmedabad"
     }
   ]
 }

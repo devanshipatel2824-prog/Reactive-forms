@@ -1,6 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Emp, Employee } from '../apis/employee';
+import { CommonModule } from '@angular/common';
 interface Employeeform {
   id: FormControl<string | null>;
   name: FormControl<string | null>;
@@ -13,11 +14,13 @@ interface Employeeform {
 }
 @Component({
   selector: 'app-form',
-  imports: [ReactiveFormsModule, FormsModule],
+  standalone: true,
+  imports: [ReactiveFormsModule, FormsModule, CommonModule],
   templateUrl: './form.html',
   styleUrl: './form.css',
 })
-export class Form {
+export class Form implements OnInit {
+  private cdr = inject(ChangeDetectorRef);
 
   private employees = inject(Employee);
   form = new FormGroup<Employeeform>({
@@ -39,12 +42,13 @@ export class Form {
     this.loadEmployees();
   }
 
-  // Load all employees initially
-  loadEmployees() {
-    this.employees.getEmployee().subscribe(res => {
-      this.employeeList = res;
-    });
-  }
+loadEmployees() {
+  this.employees.getEmployee().subscribe(res => {
+    this.employeeList = res;
+    this.cdr.detectChanges();   // 🔥 MOST IMPORTANT LINE
+  });
+}
+
 
   // Add new employee
   onSubmit() {
@@ -87,19 +91,25 @@ export class Form {
       this.isEditMode = false;
     });
   }
-
   // Delete employee
   deleteEmployee(id: string | null) {
     if (!id) return;
 
     this.employees.deleteEmployee(id).subscribe(() => {
       alert('Employee Deleted Successfully');
-      // Remove from table locally
-      this.employeeList = this.employeeList.filter(emp => emp.id !== id);
-      if (this.form.value.id === id) this.form.reset();
+
+      for (let i = 0; i < this.employeeList.length; i++) {
+        if (this.employeeList[i].id === id) {
+          this.employeeList.splice(i, 1);
+          break;
+        }
+      }
+
+      this.form.reset();
       this.isEditMode = false;
     });
   }
+
 
   // Cancel editing
   cancelEdit() {
