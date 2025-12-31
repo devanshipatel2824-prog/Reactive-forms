@@ -11,24 +11,31 @@
     </tr>
   </thead>
   <tbody>
-    @for (student of data; track student.id) {
-    <tr>
-      <td data-label="Id">{{student.id}}</td>
-      <td data-label="Name">{{ student.name }}</td>
-      <td data-label="Phone">{{ student.phone }}</td>
-      <td data-label="Email">{{ student.email }}</td>
-      <td data-label="Address">{{ student.address }}</td>
-      <td data-label="Gender">{{ student.gender }}</td>
-      <td>
-        <button class="btn btn-warning btn-sm" (click)="edit.emit(student)" data-bs-toggle="modal"
-          data-bs-target="#studentModal">Edit</button>
-        <button class="btn btn-danger btn-sm ms-2" (click)="remove.emit(student.id)">Delete</button>
-      </td>
-    </tr>
-    } @empty {
-    <tr>
-      <td colspan="6" class="text-center">No records found.</td>
-    </tr>
-    }
+
+  @if (data | async; as detail) {
+
+    @for (student of detail; track student.id) {
+      <tr>
+        <td>{{ student.id }}</td>
+        <td>{{ student.name }}</td>
+        <td>{{ student.phone }}</td>
+        <td>{{ student.email }}</td>
+        <td>{{ student.address }}</td>
+        <td>{{ student.gender }}</td>
+        <td>
+          <button class="btn btn-warning btn-sm"
+                  (click)="edit.emit(student)"
+                  data-bs-toggle="modal"
+                  data-bs-target="#studentModal">
+            Edit
+          </button>
+
+          <button class="btn btn-danger btn-sm ms-2"
+                  (click)="remove.emit(student.id)">
+            Delete
+          </button>
+        </td>
+      </tr>
+    }}
   </tbody>
 </table>
