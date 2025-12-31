@@ -1,0 +1,38 @@
+{
+  "teachers": [
+    {
+      "id": "1",
+      "name": "Devasnhi",
+      "phone": "9979684933",
+      "email": "devanshi.sharma@gmail.com",
+      "address": "valsad",
+      "gender": "Female"
+    },
+    {
+      "id": "2",
+      "name": "Riddhi",
+      "phone": "7896523147",
+      "email": "riddhi@tag97.com",
+      "address": "Surat",
+      "gender": "female"
+    }
+  ],
+  "students": [
+    {
+      "id": "1",
+      "name": "Dhyey",
+      "phone": "9979684933",
+      "email": "dhyey@gmail.com",
+      "address": "valsad",
+      "gender": "Male"
+    },
+    {
+      "id": "2",
+      "name": "Parul patel",
+      "phone": "8963251475",
+      "email": "parul@tag97.com",
+      "address": "Bharuch",
+      "gender": "female"
+    }
+  ]
+}

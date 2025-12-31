@@ -1,0 +1,77 @@
+/* Table container spacing */
+table {
+  background-color: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Header styling */
+.table thead th {
+  text-align: center;
+  vertical-align: middle;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* Body cells */
+.table tbody td {
+  vertical-align: middle;
+  text-align: center;
+  padding: 10px;
+}
+
+/* Hover effect */
+.table tbody tr:hover {
+  background-color: #f5f9ff;
+  transition: background-color 0.2s ease-in-out;
+}
+
+/* Action buttons */
+.table .btn {
+  min-width: 70px;
+}
+
+/* Edit button */
+.table .btn-warning {
+  color: #000;
+  font-weight: 500;
+}
+
+/* Delete button */
+.table .btn-danger {
+  font-weight: 500;
+}
+
+/* Empty state */
+.table tbody tr td[colspan] {
+  font-style: italic;
+  color: #6c757d;
+}
+
+/* Responsive fix */
+@media (max-width: 768px) {
+  .table thead {
+    display: none;
+  }
+
+  .table tbody tr {
+    display: block;
+    margin-bottom: 15px;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    padding: 10px;
+  }
+
+  .table tbody td {
+    display: flex;
+    justify-content: space-between;
+    text-align: left;
+    padding: 8px;
+  }
+
+  .table tbody td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #495057;
+  }
+}
