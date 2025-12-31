@@ -1,7 +1,8 @@
 import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Emp, Employee } from '../apis/employee';
-import { CommonModule } from '@angular/common';
+import { AsyncPipe, CommonModule } from '@angular/common';
+import { firstValueFrom, map, Observable } from 'rxjs';
 interface Employeeform {
   id: FormControl<string | null>;
   name: FormControl<string | null>;
@@ -15,13 +16,13 @@ interface Employeeform {
 @Component({
   selector: 'app-form',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, CommonModule],
+  imports: [ReactiveFormsModule, FormsModule, AsyncPipe],
   templateUrl: './form.html',
   styleUrl: './form.css',
 })
 export class Form implements OnInit {
   private cdr = inject(ChangeDetectorRef);
-
+  employee$!: Observable<Emp[]>;
   private employees = inject(Employee);
   form = new FormGroup<Employeeform>({
     id: new FormControl(null, Validators.required),
@@ -41,24 +42,20 @@ export class Form implements OnInit {
   ngOnInit() {
     this.loadEmployees();
   }
-
-loadEmployees() {
-  this.employees.getEmployee().subscribe(res => {
-    this.employeeList = res;
-    this.cdr.detectChanges();   // 🔥 MOST IMPORTANT LINE
-  });
-}
-
-
+   loadEmployees(): void {
+    console.log("Observable");
+    this.employee$ = this.employees.getEmployee();
+    this.cdr.detectChanges();
+  }
   // Add new employee
-  onSubmit() {
+  async onSubmit() {
     if (!this.form.valid) return;
-
-    this.employees.createEmployee(this.form.value as Emp).subscribe(res => {
-      alert('Employee Added Successfully');
-      this.employeeList.push(res); // Add directly to table without reloading
-      this.form.reset();
-    });
+    await firstValueFrom(
+      this.employees.createEmployee(this.form.value as Emp)
+    );
+    alert('Employee Added Successfully');
+    this.form.reset();
+    this.loadEmployees();
   }
 
   // Populate form for editing
@@ -75,43 +72,39 @@ loadEmployees() {
     });
   }
 
-  // Update employee
-  updateEmployee() {
-    const id = this.form.value.id;
-    if (!id) return alert('Please select employee to update');
+ async updateEmployee() {
+  const id = this.form.value.id;
+  if (!id) return;
 
-    this.employees.updateEmployee(id, this.form.value as Emp).subscribe(res => {
-      alert('Employee Updated Successfully');
-      // Update table locally
-      const index = this.employeeList.findIndex(emp => emp.id === id);
-      if (index !== -1) {
-        this.employeeList[index] = { ...this.form.value } as Emp;
-      }
-      this.form.reset();
-      this.isEditMode = false;
-    });
+  try {
+    await firstValueFrom(
+      this.employees.updateEmployee(id, this.form.value as Emp)
+    );
+
+    alert('Employee Updated Successfully');
+    this.form.reset();
+    this.isEditMode = false;
+    this.loadEmployees();
+
+  } catch (error) {
+    console.error('Update Error:', error);
+    alert('Failed to update employee');
   }
-  // Delete employee
-  deleteEmployee(id: string | null) {
+}
+
+  //  DELETE
+  async deleteEmployee(id: string | null) {
     if (!id) return;
 
-    this.employees.deleteEmployee(id).subscribe(() => {
-      alert('Employee Deleted Successfully');
+    await firstValueFrom(
+      this.employees.deleteEmployee(id)
+    );
 
-      for (let i = 0; i < this.employeeList.length; i++) {
-        if (this.employeeList[i].id === id) {
-          this.employeeList.splice(i, 1);
-          break;
-        }
-      }
-
-      this.form.reset();
-      this.isEditMode = false;
-    });
+    alert('Employee Deleted Successfully');
+    this.loadEmployees();
   }
 
 
-  // Cancel editing
   cancelEdit() {
     this.form.reset();
     this.isEditMode = false;

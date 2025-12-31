@@ -18,6 +18,7 @@ export interface Emp {
   providedIn: 'root',
 })
 export class Employee {
+  
   private http = inject(HttpClient);
   private apiUrl = 'http://localhost:3000/employee';
   getEmployee(): Observable<Emp[]> {

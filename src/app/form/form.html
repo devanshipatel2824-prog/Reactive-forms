@@ -94,12 +94,8 @@
 
                         <!-- Buttons -->
                         <div class="d-grid gap-2">
-                            <button type="button" class="btn btn-success" [disabled]="form.invalid" (click)="onSubmit()"
-                                [hidden]="isEditMode">Add</button>
-                            <button type="button" class="btn btn-primary" [disabled]="form.invalid"
-                                (click)="updateEmployee()" [hidden]="!isEditMode">Update</button>
-                            <button type="button" class="btn btn-secondary" (click)="cancelEdit()"
-                                [hidden]="!isEditMode">Cancel</button>
+                            <button type="button" class="btn btn-success" [disabled]="form.invalid" (click)="onSubmit()">Add</button>
+                            
                         </div>
                     </form>
                 </div>
@@ -125,7 +121,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @for(emp of employeeList; track emp.id) {
+                       
+                            @for(emp of employee$|async; track emp.id) {
                             <tr>
                                 <td>{{ emp.id }}</td>
                                 <td>{{ emp.name }}</td>

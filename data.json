@@ -26,6 +26,33 @@
       "phone": 8967456321,
       "salary": 1000,
       "city": "Surat"
+    },
+    {
+      "id": "4",
+      "name": "parchi",
+      "email": "parchi@tag97.com",
+      "gender": "female",
+      "phone": 8963258974,
+      "salary": 10000,
+      "city": "Ahmedabad"
+    },
+    {
+      "id": "5",
+      "name": "jayesh",
+      "email": "jayesh@tag97.com",
+      "gender": "male",
+      "phone": 7895632541,
+      "salary": 10000,
+      "city": "Vadodara"
+    },
+    {
+      "id": "5",
+      "name": "jayesh patel",
+      "email": "jayesh@tag97.com",
+      "gender": "male",
+      "phone": 7895632541,
+      "salary": 10000,
+      "city": "Vadodara"
     }
   ]
 }
